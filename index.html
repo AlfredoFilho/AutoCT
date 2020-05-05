@@ -2,14 +2,21 @@
 <html>
     <head>
         <meta charset="utf-8"/>
+        <title>AutoCT</title>
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script src="js/scripts.js" defer></script>
+        <script src="js/jquery.js" defer></script>
     </head>
     <body>
         <header>
             <h3>Auto Correction Tests - </h3>
-            <a href="Template.pdf" target="_blank" download>Template do Gabarito</a>
+            <div class="divDownload">
+                <i class="fa fa-download"></i>
+                <a href="Template.pdf" target="_blank" download>Template</a>
+            </div>
         </header>
 
         <div class="divFile">
@@ -34,6 +41,7 @@
 
         <div id="outras">
         </div>
-        <button id="btnCorrigir">Corrigir</button>
+        <button class="btnsStyles btnLimpar" id="btnLimpar">Limpar</button>
+        <button class="btnsStyles btnCorrigir" id="btnCorrigir">Corrigir</button>
     </body>
 </html>
