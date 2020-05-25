@@ -3,13 +3,23 @@
     <head>
         <meta charset="utf-8"/>
         <title>AutoCT - Download Template</title>
+        
+        <!-- Extern imports -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
         <!-- My imports -->
+        <link rel="stylesheet" type="text/css" href="../css/navbar.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script src="js/scripts.js" defer></script>
     </head>
-    <body>
+    <body style= "margin: 0;">
         <header>
+            <ul class="topnav">
+                <li><a id="nameWebsite" href="/AutoCT-Web">AutoCT</a></li>
+                <li><a href="/AutoCT-Web">Home</a></li>
+                <li><a class="active" href="">Download Template</a></li>
+                <li><a href="/AutoCT-Web/sobre">Sobre</a></li>
+            </ul>
         </header>
             <div class="divDownload" id="aaa" onclick="downloadFile(nameFile = 'Template.pdf')">
                 <i class="fa fa-download"></i>
