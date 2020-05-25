@@ -1,8 +1,6 @@
-insertAlternativas(30);
-insertOutras(10);
-
 function numberOnly(t){
     t.value = t.value.replace(/[^0-9]/g,'');
+    t.parentNode.style.backgroundColor = "#80808014";
 }
 
 function letterOnly(input){
@@ -10,8 +8,16 @@ function letterOnly(input){
     input.value = input.value.replace(regex, "")
 }
 
-function insertAlternativas(quantAlt){
+function changeAlternativa(t){
+    t.value = t.value.toUpperCase();
+    letterOnly(t);
+    t.parentNode.style.backgroundColor = "#80808014";
+}
 
+function insertAlternativas(t){
+
+    t.parentNode.style.backgroundColor = "#8080800d";
+    quantAlt = parseInt(t.value)
     var divAlternativas = document.getElementById("alternativas");
     divAlternativas.innerHTML = ""
     content = ""
@@ -27,14 +33,16 @@ function insertAlternativas(quantAlt){
 
         content = content + "<div class = 'resposta'>"
         content = content + "<label for='alt"+ pos +"'>"+ pos +"</label>"
-        content = content + "<input type='text' id='alt"+ pos +"' name='alt"+ pos +"' placeholder='A B C D E' maxlength='1' onkeyup='this.value = this.value.toUpperCase();letterOnly(this);'></input>"
+        content = content + "<input type='text' id='alt"+ pos +"' name='alt"+ pos +"' placeholder='A B C D E' maxlength='1' oninput='changeAlternativa(this)'></input>"
         content = content + "</div>"
     }
     divAlternativas.innerHTML = content
 }
 
-function insertOutras(quantOut){
+function insertOutras(t){
 
+    t.parentNode.style.backgroundColor = "#8080800d";
+    quantOut = parseInt(t.value)
     var divOutras = document.getElementById("outras");
     divOutras.innerHTML = ""
     content = ""

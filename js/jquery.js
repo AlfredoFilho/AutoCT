@@ -3,47 +3,50 @@ $(document).ready(function(){
     $("#btnLimpar").click(function(){
         $(':input[type=text]').val('')
     });
+
+    $("#file").change(function() {
+        $(".divFile").css({"background-color":"#8080800d"});
+    });
     
+    $(".resposta input[type=text]").keyup(function() {
+        alert("Key up detected");
+    });
+
+
+    function checkFile(){
+        if( document.getElementById("file").files.length == 0 ){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    function checkInputs(){
+        var inputEmpty = true
+
+        $(':input[type=text], select').each(function(){    
+            if($(this).val() == ''){
+                if (this.nodeName == 'INPUT')
+                    $(this.parentNode).css({"background-color":"#ff00001c"});
+                else
+                    $(this.parentNode).css({"background-color":"#ff00001c"});
+                inputEmpty = false
+            }
+        })
+        return inputEmpty
+    }
+
     $("#btnCorrigir").click(function(){
+        if (checkFile() == true){
+            if (checkInputs() == true){
 
-        respostasAlt = ""
-        for (i = 1; i <= 30; ++i) {
-            
-            position = String(i)
-
-            if( i < 10){
-                position = "0" + String(i)
+            }else{
+                alert("Você deixou algum input vazio!")
             }
 
-            respostasAlt = respostasAlt + position + " = " + $("#alt" + position).val() + "<br>"
+        }else{
+            $(".divFile").css({"background-color":"#ff00001c"});
+            alert("Você não selecionou um arquivo!")
         }
-
-        for (i = 31; i <= 40; ++i) {
-            
-            position = String(i)
-
-            if( i < 10){
-                position = "0" + String(i)
-            }
-
-            respostasAlt = respostasAlt + position + " = " + $("#out" + position).val() + "<br>"
-        }
-
-        $.MessageBox({
-            buttonDone  : "OK",
-            buttonFail  : "Voltar",
-            message     : respostasAlt
-        }).done(function(){
-            $.LoadingOverlay("show");
-
-            setTimeout(function(){
-                $.LoadingOverlay("hide");
-                $.MessageBox("Em construção!");
-            }, 2000);
-
-        }).fail(function(){
-        
-        });
-
     });
 });
