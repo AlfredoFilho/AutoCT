@@ -1,15 +1,6 @@
 insertAlternativas(30);
 insertOutras(10);
 
-function downloadFile(){
-    src = "TemplatePDF.pdf"
-    var link=document.createElement('a');
-    document.body.appendChild(link);
-    link.href= src;
-    link.download = '';
-    link.click();
-}
-
 function numberOnly(t){
     t.value = t.value.replace(/[^0-9]/g,'');
 }

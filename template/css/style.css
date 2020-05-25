@@ -1,0 +1,22 @@
+.divDownload {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 7px 13px;
+    cursor: pointer;
+    font-size: 15px;
+    display: inline;
+  }
+
+ .divDownload a {
+    color: white;
+    text-decoration: none;
+ }
+
+.divDownload:hover {
+    background-color: RoyalBlue;
+  }
+
+.fa-download:before {
+    margin-right: 10px;
+}

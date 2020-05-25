@@ -12,16 +12,18 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
         <!-- My imports -->
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="css/navbar.css">
         <script src="js/scripts.js" defer></script>
         <script src="js/jquery.js" defer></script>
     </head>
     <body>
         <header>
-            <h3>Auto Correction Tests - </h3>
-            <div class="divDownload" onclick="document.getElementById('aDownload').click()">
-                <i class="fa fa-download"></i>
-                <a href="Template.pdf" id="aDownload" target="_blank" download>Template</a>
-            </div>
+            <ul class="topnav">
+                <li><a class="active" href="#home">Home</a></li>
+                <li><a href="/template">Download Template</a></li>
+                <li><a href="/sobre">Sobre</a></li>
+                <!-- <li class="right"><a href="#about">About</a></li> -->
+            </ul>
         </header>
 
         <div class="divFile">
