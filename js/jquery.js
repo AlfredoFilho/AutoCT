@@ -69,7 +69,8 @@ $(document).ready(function(){
     $("#btnCorrigir").click(function(){
         if (checkFile() == true){
             if (checkInputs() == true){
-                uploadFile()
+                // uploadFile()
+                alert("Em construção!")
             } else{
                 alert("Você deixou algum input vazio!")
             }
