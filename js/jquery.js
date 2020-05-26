@@ -1,20 +1,33 @@
 $(document).ready(function(){
+
+    var file = ''
     
+    function getBase64(file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            fileInB64 = reader.result.split(',')[1];
+            console.log(fileInB64)
+        };
+        reader.onerror = function (error) {
+          console.log('Error: ', error);
+        };
+     }
+        
     $("#btnLimpar").click(function(){
         $(':input[type=text]').val('')
     });
 
     $("#file").change(function() {
         $(".divFile").css({"background-color":"#8080800d"});
+        var file = document.querySelector('.divFile > input[type="file"]').files[0];
+        console.log(file.target.result)
+        // getBase64(file)
     });
     
-    $(".resposta input[type=text]").keyup(function() {
-        alert("Key up detected");
-    });
-
-
     function checkFile(){
         if( document.getElementById("file").files.length == 0 ){
+            $(".divFile").css({"background-color":"#ff00001c"});
             return false;
         }else{
             return true;
@@ -36,17 +49,31 @@ $(document).ready(function(){
         return inputEmpty
     }
 
-    $("#btnCorrigir").click(function(){
-        if (checkFile() == true){
-            if (checkInputs() == true){
-
-            }else{
-                alert("Você deixou algum input vazio!")
+    function uploadFile(){
+        $.ajax({
+            url: 'https://r0oq6xy9te.execute-api.us-east-2.amazonaws.com/AutoCT-API/upload',
+            crossDomain : true,
+            processData: false,
+            data: file,
+            contentType: 'image/png',
+            type: 'POST',
+            success: function (data) {
+                console.log(data)
             }
+        });
+    }
 
-        }else{
-            $(".divFile").css({"background-color":"#ff00001c"});
-            alert("Você não selecionou um arquivo!")
-        }
+    $("#btnCorrigir").click(function(){
+        // if (checkFile() == true){
+        //     if (checkInputs() == true){
+        //         uploadFile()
+        //     } else{
+        //         alert("Você deixou algum input vazio!")
+        //     }
+
+        // } else{
+        //     alert("Você não selecionou um arquivo!")
+        // }
+        uploadFile()
     });
 });
