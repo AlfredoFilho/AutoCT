@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
     var file = ''
+    var form;
     
     function getBase64(file) {
         var reader = new FileReader();
@@ -20,9 +21,11 @@ $(document).ready(function(){
 
     $("#file").change(function() {
         $(".divFile").css({"background-color":"#8080800d"});
-        var file = document.querySelector('.divFile > input[type="file"]').files[0];
-        console.log(file.target.result)
+        // var file = document.querySelector('.divFile > input[type="file"]').files[0];
+        // console.log(file.target.result)
         // getBase64(file)
+        form = new FormData();
+        form.append('file', event.target.files[0]);
     });
     
     function checkFile(){
@@ -54,7 +57,7 @@ $(document).ready(function(){
             url: 'https://r0oq6xy9te.execute-api.us-east-2.amazonaws.com/AutoCT-API/upload',
             crossDomain : true,
             processData: false,
-            data: file,
+            data: form,
             contentType: 'image/png',
             type: 'POST',
             success: function (data) {
