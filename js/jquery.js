@@ -67,16 +67,16 @@ $(document).ready(function(){
     }
 
     $("#btnCorrigir").click(function(){
-        // if (checkFile() == true){
-        //     if (checkInputs() == true){
-        //         uploadFile()
-        //     } else{
-        //         alert("Você deixou algum input vazio!")
-        //     }
+        if (checkFile() == true){
+            if (checkInputs() == true){
+                uploadFile()
+            } else{
+                alert("Você deixou algum input vazio!")
+            }
 
-        // } else{
-        //     alert("Você não selecionou um arquivo!")
-        // }
-        uploadFile()
+        } else{
+            alert("Você não selecionou um arquivo!")
+        }
+        // uploadFile()
     });
 });
