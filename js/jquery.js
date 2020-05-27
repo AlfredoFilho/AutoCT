@@ -37,10 +37,7 @@ $(document).ready(function(){
 
         $(':input[type=text], select').each(function(){    
             if($(this).val() == ''){
-                if (this.nodeName == 'INPUT')
-                    $(this.parentNode).css({"background-color":"#ff00001c"});
-                else
-                    $(this.parentNode).css({"background-color":"#ff00001c"});
+                $(this.parentNode).css({"background-color":"#ff00001c"});
                 inputEmpty = false
             }
         })
