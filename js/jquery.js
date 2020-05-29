@@ -77,6 +77,7 @@ $(document).ready(function(){
             $.LoadingOverlay("show");
 
             // var data = await uploadFile()
+            // console.log(data)
             // setDataDiv(data)
             alert("Em construção!")
             
