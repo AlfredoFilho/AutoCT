@@ -24,16 +24,11 @@ function insertAlternativas(t){
     
     for (var i = 1; i <= quantAlt; i++) {
 
-        if (i < 10){
-            pos = "0" + String(i);
-        }
-        else{
-            pos = String(i);
-        }
+        pos = ('0' + i).slice(-2)
 
         content = content + "<div class = 'resposta'>"
-        content = content + "<label for='alt"+ pos +"'>"+ pos +"</label>"
-        content = content + "<input type='text' id='alt"+ pos +"' name='alt"+ pos +"' placeholder='A B C D E' maxlength='1' oninput='changeAlternativa(this)'></input>"
+        content = content + "<label for='"+ pos +"'>"+ pos +"</label>"
+        content = content + "<input type='text' id='"+ pos +"' name='"+ pos +"' placeholder='A B C D E' maxlength='1' oninput='changeAlternativa(this)'></input>"
         content = content + "</div>"
     }
     divAlternativas.innerHTML = content
@@ -49,16 +44,11 @@ function insertOutras(t){
     
     for (var i = 1; i <= quantOut; i++) {
 
-        if (i < 10){
-            pos = "0" + String(i);
-        }
-        else{
-            pos = String(i);
-        }
+        pos = ('0' + i).slice(-2)
 
         content = content + "<div class = 'resposta'>"
-        content = content + "<label for='out"+ (parseInt(pos) + 30) +"'>"+ (parseInt(pos) + 30) +"</label>"
-        content = content + "<input type='text' id='out"+ (parseInt(pos) + 30) +"' name='out"+ (parseInt(pos) + 30) +"' placeholder='máx: 6' maxlength='6' oninput='numberOnly(this)'></input>"
+        content = content + "<label for='"+ (parseInt(pos) + 30) +"'>"+ (parseInt(pos) + 30) +"</label>"
+        content = content + "<input type='text' id='"+ (parseInt(pos) + 30) +"' name='"+ (parseInt(pos) + 30) +"' placeholder='máx: 6' maxlength='6' oninput='numberOnly(this)'></input>"
         content = content + "</div>"
     }
     divOutras.innerHTML = content

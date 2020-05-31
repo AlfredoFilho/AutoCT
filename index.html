@@ -37,41 +37,44 @@
             </ul>
         </header>
 
-        <div class="divFile">
-            <p>Provas - <strong>PDF</strong>, <strong>PNG</strong>, ou <strong>JPG</strong></p>
-            <input id="file" name="userfile" type="file" accept="application/pdf, image/jpeg, image/png" />
-        </div>
-
-        <div class="quantPerguntas">
-            <h1 class="titleH1" >Alternativas  </h1>
-            <select id="selectAlt" onchange="insertAlternativas(this)">
-                <option value="" selected>Escolha uma opção</option>
-                <option value="999" disabled>Não contém</option>
-                <option value="30">30</option>
-                <option value="20" disabled>20</option>
-                <option value="10" disabled>10</option>
-              </select>
+        <div id="respostasPerguntas">
+            <div class="divFile">
+                <p>Provas - <strong>PDF</strong>, <strong>PNG</strong>, ou <strong>JPG</strong></p>
+                <input id="file" name="userfile" type="file" accept="application/pdf, image/jpeg, image/png" />
+            </div>
+    
+            <div class="quantPerguntas">
+                <h1 class="titleH1" >Alternativas  </h1>
+                <select name= "selectQuantAlternativas" id="selectAlt" onchange="insertAlternativas(this)">
+                    <option value="" selected>Escolha uma opção</option>
+                    <option value="999" disabled>Não contém</option>
+                    <option value="30">30</option>
+                    <option value="20" disabled>20</option>
+                    <option value="10" disabled>10</option>
+                  </select>
+            </div>
+            
+            <div id="alternativas">
+            </div>
+    
+            <div class="quantPerguntas">
+                <h1 class="titleH1" >Outras </h1>
+                <select name = "selectQuantOutras" id="selectOut" onchange="insertOutras(this)">
+                    <option value="" selected>Escolha uma opção</option>
+                    <option value="999" disabled>Não contém</option>
+                    <option value="10">10</option>
+                    <option value="20" disabled>20</option>
+                  </select>
+            </div>
+    
+            <div id="outras">
+            </div>
+            <button class="btnsStyles btnLimpar" id="btnLimpar">Limpar</button>
+            <button class="btnsStyles btnCorrigir" id="btnCorrigir">Corrigir</button>
         </div>
         
-        <div id="alternativas">
-        </div>
+        <div id="resultadoAPI" style="display: none;">
 
-        <div class="quantPerguntas">
-            <h1 class="titleH1" >Outras </h1>
-            <select id="selectOut" onchange="insertOutras(this)">
-                <option value="" selected>Escolha uma opção</option>
-                <option value="999" disabled>Não contém</option>
-                <option value="10">10</option>
-                <option value="20" disabled>20</option>
-              </select>
         </div>
-
-        <div id="outras">
-        </div>
-        <button class="btnsStyles btnLimpar" id="btnLimpar">Limpar</button>
-        <button class="btnsStyles btnCorrigir" id="btnCorrigir">Corrigir</button>
-        
-        <!-- <div id="respostasAPI" style=" border: 1px solid;padding: .5em;font-family: monospace;white-space: pre;">
-        </div> -->
     </body>
 </html>
