@@ -32,48 +32,48 @@
                 <li><a id="nameWebsite" href="">AutoCT</a></li>
                 <li><a class="active" href="">Home</a></li>
                 <li><a href="/AutoCT/template" target="_blank">Download Template</a></li>
-                <li><a href="/AutoCT/sobre" target="_blank">Sobre</a></li>
+                <li><a href="/AutoCT/about" target="_blank">About</a></li>
                 <!-- <li class="right"><a href="#about">About</a></li> -->
             </ul>
         </header>
 
-        <div id="respostasPerguntas">
+        <div id="answersQuestions">
             <div class="divFile">
-                <p>Provas - <strong>PDF</strong>, <strong>PNG</strong>, ou <strong>JPG</strong></p>
+                <p>Tests - <strong>PDF</strong></p>
                 <input id="file" name="userfile" type="file" accept="application/pdf, image/jpeg, image/png" />
             </div>
     
-            <div class="quantPerguntas">
-                <h1 class="titleH1" >Alternativas  </h1>
-                <select name= "selectQuantAlternativas" id="selectAlt" onchange="insertAlternativas(this)">
-                    <option value="" selected>Escolha uma opção</option>
-                    <option value="999" disabled>Não contém</option>
+            <div class="quantQuestions">
+                <h1 class="titleH1" >Alternatives  </h1>
+                <select name= "selectQuantAlternatives" onchange="insertAlternatives(this)">
+                    <option value="" selected>Select an option</option>
+                    <option value="999" disabled>Doesn't contain</option>
                     <option value="30">30</option>
                     <option value="20" disabled>20</option>
                     <option value="10" disabled>10</option>
                   </select>
             </div>
             
-            <div id="alternativas">
+            <div id="alternatives">
             </div>
     
-            <div class="quantPerguntas">
-                <h1 class="titleH1" >Outras </h1>
-                <select name = "selectQuantOutras" id="selectOut" onchange="insertOutras(this)">
-                    <option value="" selected>Escolha uma opção</option>
-                    <option value="999" disabled>Não contém</option>
+            <div class="quantQuestions">
+                <h1 class="titleH1" >Others </h1>
+                <select name = "selectQuantOthers" onchange="insertOthers(this)">
+                    <option value="" selected>Select an option</option>
+                    <option value="999" disabled>Doesn't contain</option>
                     <option value="10">10</option>
                     <option value="20" disabled>20</option>
                   </select>
             </div>
     
-            <div id="outras">
+            <div id="others">
             </div>
-            <button class="btnsStyles btnLimpar" id="btnLimpar">Limpar</button>
-            <button class="btnsStyles btnCorrigir" id="btnCorrigir">Corrigir</button>
+            <button class="btnsStyles btnClear" id="btnClear">Clear inputs</button>
+            <button class="btnsStyles btnCorrect" id="btnCorrect">Correct</button>
         </div>
         
-        <div id="resultadoAPI" style="display: none;">
+        <div id="resultAPI" style="display: none;">
 
         </div>
     </body>

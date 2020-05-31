@@ -8,19 +8,19 @@ $(document).ready(function(){
         getBase64(file)
     });
 
-    $("#btnLimpar").click(function(){
+    $("#btnClear").click(function(){
         $(':input[type=text]').val('')
     });
 
-    $("#btnCorrigir").click(async function(){
+    $("#btnCorrect").click(async function(){
         if (checkFile() == true){
             if (checkInputs() == true){
                 confirmBox()
             } else{
-                alert("Você deixou algum input vazio!")
+                alert("Some input is empty!")
             }
         } else{
-            alert("Você não selecionou um arquivo!")
+            alert("No file selected!")
         }
         // confirmBox()
     });
@@ -62,7 +62,7 @@ $(document).ready(function(){
     }
 
     function makeMessageBox(){
-        messageBox = '<h3 style="text-align: center;">Confirmar Respostas</h3><br><br>'
+        messageBox = '<h3 style="text-align: center;">Confirm Responses</h3><br><br>'
         responseInputs = getResponseInputs()
 
         for(key in responseInputs){
@@ -79,14 +79,14 @@ $(document).ready(function(){
 
         $.MessageBox({
             buttonDone  : "OK",
-            buttonFail  : "Voltar",
+            buttonFail  : "Back",
             message     : makeMessageBox()
 
         }).done(async function(){
             
             $.LoadingOverlay("show");
             
-            alert('Em construção')
+            alert('Under construction')
             // var responseAPI = await requestAPI()
             // setResponse(responseAPI)
 
@@ -100,28 +100,28 @@ $(document).ready(function(){
 
         dictInputs = {}
 
-        quantAlternativas = $('select[name="selectQuantAlternativas"]').val();
-        quantOutras = $('select[name="selectQuantOutras"]').val();
+        quantAlternatives = $('select[name="selectQuantAlternatives"]').val();
+        quantOthers = $('select[name="selectQuantOthers"]').val();
 
-        if(quantAlternativas != '' && quantAlternativas != '999'){
-            dictInputs['alternativas'] = {}
+        if(quantAlternatives != '' && quantAlternatives != '999'){
+            dictInputs['alternatives'] = {}
 
-            $('#alternativas :input[type=text]').each(function(){
+            $('#alternatives :input[type=text]').each(function(){
                 id = $(this).attr('id')
                 val = $(this).val()
-                dictInputs['alternativas'][id] = ""
-                dictInputs['alternativas'][id] = val
+                dictInputs['alternatives'][id] = ""
+                dictInputs['alternatives'][id] = val
             })
         }
 
-        if(quantOutras != '' && quantOutras != '999'){
-            dictInputs['outras'] = {}
+        if(quantOthers != '' && quantOthers != '999'){
+            dictInputs['others'] = {}
 
-            $('#outras :input[type=text]').each(function(){
+            $('#others :input[type=text]').each(function(){
                 id = $(this).attr('id')
                 val = $(this).val()
-                dictInputs['outras'][id] = ""
-                dictInputs['outras'][id] = val
+                dictInputs['others'][id] = ""
+                dictInputs['others'][id] = val
             })
         }
 
@@ -146,15 +146,15 @@ $(document).ready(function(){
             setData(responseAPI)
         }
         else{
-            alert('API não conseguiu processar. Por favor, tente novamente.')
+            alert("API didn't work. Please, try again.")
         }
 
     }
 
     function setData(data){
 
-        $("#resultadoAPI").css({"display":"block"});
-        $('#resultadoAPI').text(JSON.stringify(data['body']['alternativas']))
+        $("#resultAPI").css({"display":"block"});
+        $('#resultAPI').text(JSON.stringify(data['body']['alternatives']))
 
     }
 

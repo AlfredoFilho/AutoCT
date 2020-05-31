@@ -27,7 +27,7 @@ input[type=text]{
     border-width: 1px;
 }
 
-#alternativas, #outras{
+#alternatives, #others{
     padding: 10px 19px;
     text-align: initial;
     min-height: 5px;
@@ -35,31 +35,31 @@ input[type=text]{
     border: 1px solid #ccc!important;
 }
 
-.quantPerguntas{
+.quantQuestions{
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px 0px;
 }
 
-.quantPerguntas input[type=submit]{
+.quantQuestions input[type=submit]{
     padding: 4px 10px;
     margin-left: 10px;
 }
 
-.quantPerguntas h1{
+.quantQuestions h1{
     font-size: 18px;
     margin-right: 10px;
 }   
 
-.resposta{
+.answer{
     display: inline-block;
     padding: 7px;
     background-color: #80808014;
     margin: 5px 10px;
 }
 
-.resposta label{
+.answer label{
     margin-right: 5px;
 }
 
@@ -97,10 +97,10 @@ input[type=text]{
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
-.btnCorrigir{
+.btnCorrect{
     background-color: #4CAF50;
 }
 
-.btnLimpar{
+.btnClear{
     background-color: #ff9900;
 }

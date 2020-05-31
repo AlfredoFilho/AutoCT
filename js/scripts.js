@@ -8,49 +8,49 @@ function letterOnly(input){
     input.value = input.value.replace(regex, "")
 }
 
-function changeAlternativa(t){
+function changeAlternative(t){
     t.value = t.value.toUpperCase();
     letterOnly(t);
     t.parentNode.style.backgroundColor = "#80808014";
 }
 
-function insertAlternativas(t){
+function insertAlternatives(t){
 
     t.parentNode.style.backgroundColor = "#8080800d";
     quantAlt = parseInt(t.value)
-    var divAlternativas = document.getElementById("alternativas");
-    divAlternativas.innerHTML = ""
+    var divAlternatives = document.getElementById("alternatives");
+    divAlternatives.innerHTML = ""
     content = ""
     
     for (var i = 1; i <= quantAlt; i++) {
 
         pos = ('0' + i).slice(-2)
 
-        content = content + "<div class = 'resposta'>"
+        content = content + "<div class = 'answer'>"
         content = content + "<label for='"+ pos +"'>"+ pos +"</label>"
-        content = content + "<input type='text' id='"+ pos +"' name='"+ pos +"' placeholder='A B C D E' maxlength='1' oninput='changeAlternativa(this)'></input>"
+        content = content + "<input type='text' id='"+ pos +"' name='"+ pos +"' placeholder='A B C D E' maxlength='1' oninput='changeAlternative(this)'></input>"
         content = content + "</div>"
     }
-    divAlternativas.innerHTML = content
+    divAlternatives.innerHTML = content
 }
 
-function insertOutras(t){
+function insertOthers(t){
 
     t.parentNode.style.backgroundColor = "#8080800d";
-    quantOut = parseInt(t.value)
-    var divOutras = document.getElementById("outras");
-    divOutras.innerHTML = ""
+    quantOthers = parseInt(t.value)
+    var divOthers = document.getElementById("others");
+    divOthers.innerHTML = ""
     content = ""
     
-    for (var i = 1; i <= quantOut; i++) {
+    for (var i = 1; i <= quantOthers; i++) {
 
         pos = ('0' + i).slice(-2)
 
-        content = content + "<div class = 'resposta'>"
+        content = content + "<div class = 'answer'>"
         content = content + "<label for='"+ (parseInt(pos) + 30) +"'>"+ (parseInt(pos) + 30) +"</label>"
-        content = content + "<input type='text' id='"+ (parseInt(pos) + 30) +"' name='"+ (parseInt(pos) + 30) +"' placeholder='máx: 6' maxlength='6' oninput='numberOnly(this)'></input>"
+        content = content + "<input type='text' id='"+ (parseInt(pos) + 30) +"' name='"+ (parseInt(pos) + 30) +"' placeholder='max: 6' maxlength='6' oninput='numberOnly(this)'></input>"
         content = content + "</div>"
     }
-    divOutras.innerHTML = content
+    divOthers.innerHTML = content
 
 }
