@@ -13,16 +13,16 @@ $(document).ready(function(){
     });
 
     $("#btnCorrect").click(async function(){
-        if (checkFile() == true){
-            if (checkInputs() == true){
-                confirmBox()
-            } else{
-                alert("Some input is empty!")
-            }
-        } else{
-            alert("No file selected!")
-        }
-        // confirmBox()
+        // if (checkFile() == true){
+        //     if (checkInputs() == true){
+        //         confirmBox()
+        //     } else{
+        //         alert("Some input is empty!")
+        //     }
+        // } else{
+        //     alert("No file selected!")
+        // }
+        confirmBox()
     });
     
     function getBase64(file) {
@@ -87,8 +87,8 @@ $(document).ready(function(){
             $.LoadingOverlay("show");
             
             alert('Under construction')
-            // var responseAPI = await requestAPI()
-            // setResponse(responseAPI)
+            var responseAPI = await requestAPI()
+            setResponse(responseAPI)
 
             $.LoadingOverlay("hide");
 
@@ -132,10 +132,8 @@ $(document).ready(function(){
 
         statusCode = responseAPI['statusCode']
 
-        if(statusCode == '200')
-            return true
-        else
-            return false
+        if(statusCode == '200') return true
+        else return false
     }
 
     function setResponse(responseAPI){
@@ -158,12 +156,36 @@ $(document).ready(function(){
 
     }
 
+    function makeDataToSendAPI(){
+
+        dataToSend = {}
+        dataToSend['image'] = fileInB64
+        dataToSend['numberQuestions'] = {}
+        
+        quantAlternatives = $('select[name="selectQuantAlternatives"]').val();
+        quantOthers = $('select[name="selectQuantOthers"]').val();
+
+        if(quantAlternatives != '' && quantAlternatives != '999'){
+            dataToSend['numberQuestions']['alternatives'] = parseInt(quantAlternatives)
+        }
+
+        if(quantOthers != '' && quantOthers != '999'){
+            dataToSend['numberQuestions']['others'] = parseInt(quantOthers)
+        }
+
+        return dataToSend
+    }
+
     function requestAPI(){
+
+        dataToSend = makeDataToSendAPI()
+
         return $.ajax({
             url: 'https://r0oq6xy9te.execute-api.us-east-2.amazonaws.com/AutoCT-API/upload',
             crossDomain : true,
             processData: false,
-            data: fileInB64,
+            data: JSON.stringify(dataToSend),
+            dataType: 'json',
             contentType: 'image/png',
             type: 'POST',
             success: function (responseAPI) {
