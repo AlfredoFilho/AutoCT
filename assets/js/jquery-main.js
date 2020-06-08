@@ -1,8 +1,9 @@
 $(document).ready(async function(){
 
     var fileInB64 = ''
-    const model = await tf.loadLayersModel('assets/model/model.json')
-    $.getScript('/assets/js/jquery.js')
+    var url = window.location.href; 
+    const model = await tf.loadLayersModel(`${url}assets/model/model.json`)
+    $.getScript(`${url}assets/js/jquery.js`)
     
     function confirmBox(){
 
