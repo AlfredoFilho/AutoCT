@@ -86,7 +86,7 @@ $(document).ready(function(){
             
             $.LoadingOverlay("show");
             
-            alert('Under construction')
+            // alert('Under construction')
             var responseAPI = await requestAPI()
             setResponse(responseAPI)
 
@@ -149,10 +149,53 @@ $(document).ready(function(){
 
     }
 
-    function setData(data){
+    function preprocessCanvas(image) {
+    
+        let tensor = tf.browser.fromPixels(image)
+            .resizeNearestNeighbor([28, 28])
+            .mean(2)
+            .expandDims(2)
+            .expandDims()
+            .toFloat();
+        // console.log(tensor.shape);
+        return tensor.div(255.0);
+    }
+    
+    
+    async function runModel(image){
+    
+        const inputTensor = preprocessCanvas(image)
+        const model = await tf.loadLayersModel('model/model.json')
+        const predictionResult =  model.predict(inputTensor).dataSync();
+        const recognizedDigit = predictionResult.indexOf(Math.max(...predictionResult));
+        
+        // console.log(predictionResult)
+        alert('Predição: ' + String(recognizedDigit))
+    
+    }
 
-        $("#resultAPI").css({"display":"block"});
-        $('#resultAPI').text(JSON.stringify(data['body']['alternatives']))
+    async function setData(data){
+
+        $("#answersQuestions").css({"display":"none"});
+        $("#API").css({"display":"block"});
+        // $('#resultAPI').text(JSON.stringify(data['body']['alternatives']))
+        console.log(data)
+        $("#imgB64").attr("src", "data:image/png;base64," + fileInB64);
+
+        var message = ''
+        for(var i = 1; i < 31; i++){
+
+            pos = ('0' + i).slice(-2)
+
+            message = message + '<div class="alt">'
+            message = message + '<label>' + pos + '</label>'
+            message = message + "<input type='text' maxlength='1' value= " + data['body']['alternatives'][pos] + "></input>"
+            message = message + '</div>'
+        }
+
+        $("#xx").append(message);
+
+        // await runModel(image)
 
     }
 

@@ -1,80 +1,117 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168009642-1"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
 
-            gtag('config', 'UA-168009642-1');
-        </script>
-        <meta charset="utf-8"/>
-        <title>AutoCT</title>
-        <link rel='icon' href='favicon.png' type='image/png'/>
-        
-        <!-- Extern imports -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-message-box@3.2.1/dist/messagebox.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-message-box@3.2.1/dist/messagebox.min.js"></script>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-        <!-- My imports -->
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-        <link rel="stylesheet" type="text/css" href="css/navbar.css">
-        <script src="js/scripts.js" defer></script>
-        <script src="js/jquery.js" defer></script>
-    </head>
-    <body>
-        <header>
-            <ul class="topnav">
-                <li><a id="nameWebsite" href="">AutoCT</a></li>
-                <li><a class="active" href="">Home</a></li>
-                <li><a href="/AutoCT/template" target="_blank">Download Template</a></li>
-                <li><a href="/AutoCT/about" target="_blank">About</a></li>
-                <!-- <li class="right"><a href="#about">About</a></li> -->
-            </ul>
-        </header>
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168009642-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-        <div id="answersQuestions">
-            <div class="divFile">
-                <p>Tests - <strong>PDF</strong></p>
-                <input id="file" name="userfile" type="file" accept="application/pdf, image/jpeg, image/png" />
-            </div>
-    
-            <div class="quantQuestions">
-                <h1 class="titleH1" >Alternatives  </h1>
-                <select name= "selectQuantAlternatives" onchange="insertAlternatives(this)">
-                    <option value="" selected>Select an option</option>
-                    <option value="999" disabled>Doesn't contain</option>
-                    <option value="30">30</option>
-                    <option value="20" disabled>20</option>
-                    <option value="10" disabled>10</option>
-                  </select>
-            </div>
-            
-            <div id="alternatives">
-            </div>
-    
-            <div class="quantQuestions">
-                <h1 class="titleH1" >Others </h1>
-                <select name = "selectQuantOthers" onchange="insertOthers(this)">
-                    <option value="" selected>Select an option</option>
-                    <option value="999" disabled>Doesn't contain</option>
-                    <option value="10">10</option>
-                    <option value="20" disabled>20</option>
-                  </select>
-            </div>
-    
-            <div id="others">
-            </div>
-            <button class="btnsStyles btnClear" id="btnClear">Clear inputs</button>
-            <button class="btnsStyles btnCorrect" id="btnCorrect">Correct</button>
+        gtag('config', 'UA-168009642-1');
+    </script>
+    <meta charset="utf-8" />
+    <title>AutoCT</title>
+    <link rel='icon' href='assets/favicon.png' type='image/png' />
+
+    <!-- Extern imports -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-message-box@3.2.1/dist/messagebox.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-message-box@3.2.1/dist/messagebox.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+
+    <!-- My imports -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/navbar.css">
+    <script src="assets/js/scripts.js" defer></script>
+    <script src="assets/js/jquery.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <ul class="topnav">
+            <li><a id="nameWebsite" href="">AutoCT</a></li>
+            <li><a class="active" href="">Home</a></li>
+            <li><a href="/AutoCT/pages/template" target="_blank">Download Template</a></li>
+            <li><a href="/AutoCT/pages/about" target="_blank">About</a></li>
+            <!-- <li class="right"><a href="#about">About</a></li> -->
+        </ul>
+    </header>
+
+    <div id="answersQuestions">
+        <div class="divFile">
+            <p>Tests - <strong>PDF</strong></p>
+            <input id="file" name="userfile" type="file" accept="application/pdf, image/jpeg, image/png" />
         </div>
-        
-        <div id="resultAPI" style="display: none;">
 
+        <div class="quantQuestions">
+            <h1 class="titleH1">Alternatives </h1>
+            <select name="selectQuantAlternatives" onchange="insertAlternatives(this)">
+                <option value="" selected>Select an option</option>
+                <option value="999" disabled>Doesn't contain</option>
+                <option value="30">30</option>
+                <option value="20" disabled>20</option>
+                <option value="10" disabled>10</option>
+            </select>
         </div>
-    </body>
+
+        <div id="alternatives">
+        </div>
+
+        <div class="quantQuestions">
+            <h1 class="titleH1">Others </h1>
+            <select name="selectQuantOthers" onchange="insertOthers(this)">
+                <option value="" selected>Select an option</option>
+                <option value="999" disabled>Doesn't contain</option>
+                <option value="10">10</option>
+                <option value="20" disabled>20</option>
+            </select>
+        </div>
+
+        <div id="others">
+        </div>
+        <button class="btnsStyles btnClear" id="btnClear">Clear inputs</button>
+        <button class="btnsStyles btnCorrect" id="btnCorrect">Correct</button>
+    </div>
+
+    <div id="API" style="display: none;">
+        <!-- Content Test -->
+        <div class="test">
+            <!-- Image -->
+            <div id="imageID">
+                <div class="idStudent">
+                    <label>RA:</label>
+                    <input type='text' maxlength='6'></input>
+                </div>
+                <span>
+                    <img id="imgB64">
+                </span>
+            </div>
+            <!-- Responses -->
+            <div class="resultResponse">
+                <!-- Content Alternatives -->
+                <div class="alternativesAPI" id="xx">
+                    <h3>Alternatives:</h3>
+                    <!-- <div class="alt">
+                        <label>ID:</label>
+                        <input type='text' maxlength='1'></input>
+                    </div> -->
+                </div>
+                <hr>
+                <!-- Content Others -->
+                <div class="othersAPI">
+                    <h3>Others:</h3>
+                    <div class="oth">
+                        <label>31:</label>
+                        <input type='text' maxlength='1'></input>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
 </html>

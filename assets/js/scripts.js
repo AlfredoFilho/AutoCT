@@ -16,7 +16,7 @@ function changeAlternative(t){
 
 function insertAlternatives(t){
 
-    t.parentNode.style.backgroundColor = "#8080800d";
+    t.parentNode.style.backgroundColor = "#FFF";
     quantAlt = parseInt(t.value)
     var divAlternatives = document.getElementById("alternatives");
     divAlternatives.innerHTML = ""
@@ -36,7 +36,7 @@ function insertAlternatives(t){
 
 function insertOthers(t){
 
-    t.parentNode.style.backgroundColor = "#8080800d";
+    t.parentNode.style.backgroundColor = "#FFF";
     quantOthers = parseInt(t.value)
     var divOthers = document.getElementById("others");
     divOthers.innerHTML = ""
