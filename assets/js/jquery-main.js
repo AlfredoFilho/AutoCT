@@ -218,24 +218,22 @@ $(document).ready(async function(){
         confirmBox()
     });
 
-    function analysesStatus(responseAPI){
-
-        statusCode = responseAPI['statusCode']
+    function analysesStatus(statusCode){
 
         if(String(statusCode) === '200'){
-            return true
+            return 'true'
         }
         else{
-            return false
+            return 'false'
         }
     }
 
     function setResponse(responseAPI){
 
-        status = analysesStatus(responseAPI)
+        status = analysesStatus(responseAPI['statusCode'])
         console.log(responseAPI)
     
-        if(status === true){
+        if(status === 'true'){
             setData(responseAPI['body'])
         }
         else{
