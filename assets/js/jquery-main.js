@@ -26,6 +26,39 @@ $(document).ready(async function () {
 
     }
 
+    function checkQuestionsToApplyCss(){
+
+        const responsesInput = getResponseInputs()
+
+        $('.test').each(function(index, testElement) {
+            var $alts = $(testElement).find('.resultResponse').find('.alternativesAPI').find('.alt')
+            var $oths = $(testElement).find('.resultResponse').find('.othersAPI').find('.oth')
+        
+            $.each($alts, function(n, altElement){
+                var id = $(altElement).find('input').attr('id').split('-')[1]
+                var value = $(altElement).find('input').val()
+
+                if(responsesInput['alternatives'][id] !== value){
+                    $(altElement).css({"background-color":"#ff00001c"})
+                }else{
+                    $(altElement).css({"background-color":"#c1fdc1"})
+                }
+            });
+
+            $.each($oths, function(n, othElement){
+                var id = $(othElement).find('input').attr('id').split('-')[1]
+                var value = $(othElement).find('input').val()
+
+                if(responsesInput['others'][id] !== value){
+                    $(othElement).css({"background-color":"#ff00001c"})
+                }else{
+                    $(othElement).css({"background-color":"#c1fdc1"})
+                }
+            });
+
+        })
+    }
+
 
     function loadImage(source) {
 
@@ -76,15 +109,19 @@ $(document).ready(async function () {
 
     async function setAlternatives(dataAlternatives) {
 
+        var quantTests = $('.test').length
+
         var message = ''
         for (var i = 1; i < 31; i++) {
 
-            pos = ('0' + i).slice(-2)
+            var pos = ('0' + i).slice(-2)
+            var id = String(quantTests) + '_alt-' + pos
+            var response = dataAlternatives[pos]
 
-            message = message + '<div class="alt">'
-            message = message + '<label>' + pos + '</label>'
-            message = message + "<input type='text' maxlength='1' id=alt-'" + pos + "' value= " + dataAlternatives[pos] + "></input>"
-            message = message + '</div>'
+            message = message + `<div class="alt">
+                                    <label for="${id}">${pos}</label>
+                                    <input type="text" maxlength="1" id="${id}" value="${response}"></input>
+                                </div>`
         }
 
         $("#API .test").last().find(".alternativesAPI").append(message);
@@ -93,17 +130,21 @@ $(document).ready(async function () {
 
     async function setOther(other, otherResponsePredict){
 
-        pos = ('0' + other).slice(-2)
+        var qualAlternatives  = $('.alternativesAPI > div').length
+        var quantTests = $('.test').length
+        
+        var pos = qualAlternatives + other
+        var id =  String(quantTests) + "_oth-" + String(pos)
 
         modelOther = `
             <div class="oth">
-                <label></label>
-                <input type='text' maxlength='6'></input>
+                <label for="${id}">${pos}</label>
+                <input type='text' maxlength='6' id="${id}" value="${otherResponsePredict}"></input>
             </div>
         `
         $("#API .test").last().find(".othersAPI").append(modelOther);
-        $("#API .test").last().find(".othersAPI").find('.oth').last().find('label').text(pos)
-        $("#API .test").last().find(".othersAPI").find('.oth').last().find('input').val(parseInt(otherResponsePredict))
+        // $("#API .test").last().find(".othersAPI").find('.oth').last().find('label').text(pos)
+        // $("#API .test").last().find(".othersAPI").find('.oth').last().find('input').val(otherResponsePredict)
     }
 
     async function setOthers(dataOthers) {
@@ -168,6 +209,8 @@ $(document).ready(async function () {
         if ('imagensOthers' in dataBody) {
             await setOthers(dataBody['imagensOthers'])
         }
+
+        checkQuestionsToApplyCss()
     }
 
     function makeDataToSendAPI() {
@@ -217,6 +260,15 @@ $(document).ready(async function () {
         getBase64(file)
     });
 
+    $("body").on('input', '.alt', function () {
+        var regex = /[^A-Ea-e]/gi
+        var newValue = $(this).find('input').val()
+        var valueRegex = newValue.replace(regex, "")
+        $(this).find('input').val(valueRegex.toUpperCase())
+        
+        checkQuestionsToApplyCss()
+    });
+
     function getBase64(file) {
         var reader = new FileReader();
         reader.readAsDataURL(file);
@@ -229,16 +281,15 @@ $(document).ready(async function () {
     }
 
     $("#btnCorrect").click(async function () {
-        // if (checkFile() == true){
-        //     if (checkInputs() == true){
-        //         confirmBox()
-        //     } else{
-        //         alert("Some input is empty!")
-        //     }
-        // } else{
-        //     alert("No file selected!")
-        // }
-        confirmBox()
+        if (checkFile() == true){
+            if (checkInputs() == true){
+                confirmBox()
+            } else{
+                alert("Some input is empty!")
+            }
+        } else{
+            alert("No file selected!")
+        }
     });
 
     function analysesStatus(statusCode) {
