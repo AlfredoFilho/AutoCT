@@ -134,6 +134,7 @@ input[type=text]{
 .resultResponse{
     flex-grow: 1;
     text-align: initial;
+    position: relative;
 }
 
 .resultResponse h3{
@@ -149,10 +150,20 @@ input[type=text]{
     width: 30px;
 }
 
-.alt, .oth{
+.alt, .oth, .resultTest, .idStudent{
     display: inline-block;
     padding: 5px 8px;
     margin: 5px;
+}
+
+.idStudent{
+    float: left;
+}
+
+.resultTest{
+    float: right;
+    bottom: 0;
+    right: 0;
 }
 
 .alt label{
@@ -172,4 +183,23 @@ span {
 span img{
     width: 100%;
     height: 100%;
+}
+
+.downloadCsv{
+    top: 0;
+    right: 0;
+    position: fixed;
+    background-color: blue;
+    color: white;
+    padding: 10px 26px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin: 5px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    display: none;
+}
+
+.downloadCsv:hover{
+    background-color: #0000ffa6;
 }

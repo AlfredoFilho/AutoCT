@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-message-box@3.2.1/dist/messagebox.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
-
+    
     <!-- My imports -->
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="assets/css/navbar.css">
@@ -41,6 +41,8 @@
         </ul>
     </header>
 
+    <a href="javascript:void(0);" class="downloadCsv" id="btnDownloadCsv">Download CSV</a>
+
     <div id="answersQuestions">
         <div class="divFile">
             <p>Tests - <strong>PDF</strong></p>
@@ -58,8 +60,7 @@
             </select>
         </div>
 
-        <div id="alternatives">
-        </div>
+        <div id="alternatives"></div>
 
         <div class="quantQuestions">
             <h1 class="titleH1">Others </h1>
@@ -77,10 +78,6 @@
         <button class="btnsStyles btnCorrect" id="btnCorrect">Correct</button>
     </div>
 
-    <div id="API" style="display: none;">
-        <!-- Content Test -->
-
-    </div>
+    <div id="API" style="display: none;"></div>
 </body>
-
 </html>

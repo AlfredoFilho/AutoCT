@@ -26,40 +26,6 @@ $(document).ready(async function () {
 
     }
 
-    function checkQuestionsToApplyCss(){
-
-        const responsesInput = getResponseInputs()
-
-        $('.test').each(function(index, testElement) {
-            var $alts = $(testElement).find('.resultResponse').find('.alternativesAPI').find('.alt')
-            var $oths = $(testElement).find('.resultResponse').find('.othersAPI').find('.oth')
-        
-            $.each($alts, function(n, altElement){
-                var id = $(altElement).find('input').attr('id').split('-')[1]
-                var value = $(altElement).find('input').val()
-
-                if(responsesInput['alternatives'][id] !== value){
-                    $(altElement).css({"background-color":"#ff00001c"})
-                }else{
-                    $(altElement).css({"background-color":"#c1fdc1"})
-                }
-            });
-
-            $.each($oths, function(n, othElement){
-                var id = $(othElement).find('input').attr('id').split('-')[1]
-                var value = $(othElement).find('input').val()
-
-                if(responsesInput['others'][id] !== value){
-                    $(othElement).css({"background-color":"#ff00001c"})
-                }else{
-                    $(othElement).css({"background-color":"#c1fdc1"})
-                }
-            });
-
-        })
-    }
-
-
     function loadImage(source) {
 
         source = "data:image/png;base64," + source
@@ -168,16 +134,24 @@ $(document).ready(async function () {
         sourceb64 = "data:image/png;base64," + fileInB64
 
         $("#answersQuestions").css({ "display": "none" });
+        $("#btnDownloadCsv").css({ "display": "block" });
         $("#API").css({ "display": "block" });
         // $("#imgB64").attr("src", "data:image/png;base64," + fileInB64);
 
         test = `
+            <!-- Content Test -->
             <div class="test">
                 <!-- Image -->
                 <div id="imageID">
-                    <div class="idStudent">
-                        <label>RA:</label>
-                        <input type='text' maxlength='6' id="inputRA"></input>
+                    <div class="RA-Result">
+                        <div class="idStudent">
+                            <label>RA:</label>
+                            <input type='text' maxlength='6' id="inputRA"></input>
+                        </div>
+                        <div class="resultTest">
+                            <label for="aa">Result:</label>
+                            <input type='text' maxlength='6' id="result" value="" readonly="readonly"></input>
+                        </div>
                     </div>
                     <span>
                         <img id="imgB64" src=${sourceb64}>
@@ -186,7 +160,7 @@ $(document).ready(async function () {
                 <!-- Responses -->
                 <div class="resultResponse">
                     <!-- Content Alternatives -->
-                    <div class="alternativesAPI" id="xx">
+                    <div class="alternativesAPI">
                         <h3>Alternatives:</h3>
                     </div>
                     <hr>
@@ -315,4 +289,24 @@ $(document).ready(async function () {
         }
 
     }
+
+    $("#btnDownloadCsv").click(function(){
+        
+        let resultTestsContent = 'RA,Nota\n'
+        
+        $('.test').each(function(index, testElement) {
+            var idStudent = $(testElement).find('#imageID').find('.RA-Result').find('.idStudent').find('input').val()
+            var resultTest = $(testElement).find('#imageID').find('.RA-Result').find('.resultTest').find('input').val()
+            
+            resultTestsContent = resultTestsContent + idStudent + ',' + resultTest + '\n'
+        })
+       
+        let csvContent = "data:text/csv;charset=utf-8," + resultTestsContent
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "Results-AutoCV.csv");
+        document.body.appendChild(link);
+        link.click();
+    });
 });
