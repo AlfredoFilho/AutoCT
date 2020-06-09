@@ -1,47 +1,47 @@
-$(document).ready(async function(){
+$(document).ready(async function () {
 
     var fileInB64 = ''
-    var url = window.location.href; 
+    var url = window.location.href;
     const model = await tf.loadLayersModel(`${url}assets/model/model.json`)
     $.getScript(`${url}assets/js/jquery.js`)
-    
-    function confirmBox(){
+
+    function confirmBox() {
 
         $.MessageBox({
-            buttonDone  : "OK",
-            buttonFail  : "Back",
-            message     : makeMessageBox()
+            buttonDone: "OK",
+            buttonFail: "Back",
+            message: makeMessageBox()
 
-        }).done(async function(){
-            
+        }).done(async function () {
+
             $.LoadingOverlay("show");
-            
+
             // alert('Under construction')
             var responseAPI = await requestAPI()
             setResponse(responseAPI)
 
             $.LoadingOverlay("hide");
 
-        }).fail(function(){});
+        }).fail(function () { });
 
     }
 
 
-    function loadImage(source){
+    function loadImage(source) {
 
         source = "data:image/png;base64," + source
 
         return new Promise((resolve, reject) => {
-          let img = new Image()
-          img.onload = () => resolve(img)
-          img.onerror = reject
-          img.crossOrigin = "Anonymous";
-          img.src = source
+            let img = new Image()
+            img.onload = () => resolve(img)
+            img.onerror = reject
+            img.crossOrigin = "Anonymous";
+            img.src = source
         })
     }
 
     function preprocessCanvas(image) {
-    
+
         let tensor = tf.browser.fromPixels(image)
             .resizeNearestNeighbor([28, 28])
             .mean(2)
@@ -51,52 +51,83 @@ $(document).ready(async function(){
 
         return tensor.div(255.0);
     }
-    
-    
-    async function runModel(image){
-    
+
+
+    async function runModel(image) {
+
         const inputTensor = preprocessCanvas(image)
-        const predictionResult =  model.predict(inputTensor).dataSync();
+        const predictionResult = model.predict(inputTensor).dataSync();
         const recognizedDigit = predictionResult.indexOf(Math.max(...predictionResult));
-        
-        RA = $("#API .test").last().find("#inputRA").val();
-        RA = RA + String(recognizedDigit)
+
+        return String(recognizedDigit)
+    }
+
+    async function setRA(dataRA) {
+
+        var RA = ''
+
+        for (var column = 1; column < 7; column++) {
+            source = dataRA[column]
+            imageNumber = await loadImage(source)
+            RA = RA + await runModel(imageNumber)
+        }
         $("#API .test").last().find("#inputRA").val(RA);
     }
 
-    async function setRA(dataRA){
-
-        for(var i =1; i < 7; i++){
-            source = dataRA[i]
-            image = await loadImage(source)
-            await runModel(image)
-        }
-    }
-
-    async function setAlternatives(dataAlternatives){
+    async function setAlternatives(dataAlternatives) {
 
         var message = ''
-        for(var i = 1; i < 31; i++){
+        for (var i = 1; i < 31; i++) {
 
             pos = ('0' + i).slice(-2)
 
             message = message + '<div class="alt">'
             message = message + '<label>' + pos + '</label>'
-            message = message + "<input type='text' maxlength='1' value= " + dataAlternatives[pos] + "></input>"
+            message = message + "<input type='text' maxlength='1' id=alt-'" + pos + "' value= " + dataAlternatives[pos] + "></input>"
             message = message + '</div>'
         }
 
         $("#API .test").last().find(".alternativesAPI").append(message);
 
     }
-    async function setOthers(dataOthers){}
 
-    async function setData(dataBody){
+    async function setOther(other, otherResponsePredict){
+
+        pos = ('0' + other).slice(-2)
+
+        modelOther = `
+            <div class="oth">
+                <label></label>
+                <input type='text' maxlength='6'></input>
+            </div>
+        `
+        $("#API .test").last().find(".othersAPI").append(modelOther);
+        $("#API .test").last().find(".othersAPI").find('.oth').last().find('label').text(pos)
+        $("#API .test").last().find(".othersAPI").find('.oth').last().find('input').val(parseInt(otherResponsePredict))
+    }
+
+    async function setOthers(dataOthers) {
+        
+        var otherResponsePredict = ''
+        
+        for (var other = 1; other < 11; other++) {
+            otherResponsePredict = ""
+
+            for(var column = 1; column < 7; column++){
+                source = dataOthers[other][column]
+                imageNumber = await loadImage(source)
+                otherResponsePredict = otherResponsePredict + await runModel(imageNumber)
+            }
+            await setOther(other, otherResponsePredict)
+        }
+    }
+
+    async function setData(dataBody) {
 
         sourceb64 = "data:image/png;base64," + fileInB64
 
-        $("#answersQuestions").css({"display":"none"});
-        $("#API").css({"display":"block"});
+        $("#answersQuestions").css({ "display": "none" });
+        $("#API").css({ "display": "block" });
         // $("#imgB64").attr("src", "data:image/png;base64," + fileInB64);
 
         test = `
@@ -116,19 +147,11 @@ $(document).ready(async function(){
                     <!-- Content Alternatives -->
                     <div class="alternativesAPI" id="xx">
                         <h3>Alternatives:</h3>
-                        <!-- <div class="alt">
-                            <label>ID:</label>
-                            <input type='text' maxlength='1'></input>
-                        </div> -->
                     </div>
                     <hr>
                     <!-- Content Others -->
                     <div class="othersAPI">
                         <h3>Others:</h3>
-                        <div class="oth">
-                            <label>31:</label>
-                            <input type='text' maxlength='1'></input>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -138,42 +161,42 @@ $(document).ready(async function(){
 
         await setRA(dataBody['imagensRA'])
 
-        if ('alternatives' in dataBody){
+        if ('alternatives' in dataBody) {
             await setAlternatives(dataBody['alternatives'])
         }
 
-        if ('others' in dataBody){
-            await setOthers(dataBody['others'])
+        if ('imagensOthers' in dataBody) {
+            await setOthers(dataBody['imagensOthers'])
         }
     }
 
-    function makeDataToSendAPI(){
+    function makeDataToSendAPI() {
 
         dataToSend = {}
         dataToSend['image'] = fileInB64
         dataToSend['numberQuestions'] = {}
-        
+
         quantAlternatives = $('select[name="selectQuantAlternatives"]').val();
         quantOthers = $('select[name="selectQuantOthers"]').val();
 
-        if(quantAlternatives != '' && quantAlternatives != '999'){
+        if (quantAlternatives != '' && quantAlternatives != '999') {
             dataToSend['numberQuestions']['alternatives'] = parseInt(quantAlternatives)
         }
 
-        if(quantOthers != '' && quantOthers != '999'){
+        if (quantOthers != '' && quantOthers != '999') {
             dataToSend['numberQuestions']['others'] = parseInt(quantOthers)
         }
 
         return dataToSend
     }
 
-    function requestAPI(){
+    function requestAPI() {
 
         dataToSend = makeDataToSendAPI()
 
         return $.ajax({
             url: 'https://r0oq6xy9te.execute-api.us-east-2.amazonaws.com/AutoCT-API/upload',
-            crossDomain : true,
+            crossDomain: true,
             processData: false,
             data: JSON.stringify(dataToSend),
             dataType: 'json',
@@ -182,14 +205,14 @@ $(document).ready(async function(){
             success: function (responseAPI) {
                 return responseAPI
             },
-            fail: function(responseAPI){
+            fail: function (responseAPI) {
                 return responseAPI
             }
         });
     }
 
-    $("#file").change(function() {
-        $(".divFile").css({"background-color":"#8080800d"});
+    $("#file").change(function () {
+        $(".divFile").css({ "background-color": "#8080800d" });
         var file = document.querySelector('.divFile > input[type="file"]').files[0];
         getBase64(file)
     });
@@ -201,11 +224,11 @@ $(document).ready(async function(){
             fileInB64 = reader.result.split(',')[1];
         };
         reader.onerror = function (error) {
-          console.log('Error: ', error);
+            console.log('Error: ', error);
         };
-     }
+    }
 
-    $("#btnCorrect").click(async function(){
+    $("#btnCorrect").click(async function () {
         // if (checkFile() == true){
         //     if (checkInputs() == true){
         //         confirmBox()
@@ -218,25 +241,25 @@ $(document).ready(async function(){
         confirmBox()
     });
 
-    function analysesStatus(statusCode){
+    function analysesStatus(statusCode) {
 
-        if(String(statusCode) === '200'){
+        if (String(statusCode) === '200') {
             return 'true'
         }
-        else{
+        else {
             return 'false'
         }
     }
 
-    function setResponse(responseAPI){
+    function setResponse(responseAPI) {
 
         status = analysesStatus(responseAPI['statusCode'])
         console.log(responseAPI)
-    
-        if(status === 'true'){
+
+        if (status === 'true') {
             setData(responseAPI['body'])
         }
-        else{
+        else {
             alert("Oops, something didn't work. Please, try again.")
         }
 
