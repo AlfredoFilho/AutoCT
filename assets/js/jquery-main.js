@@ -96,10 +96,10 @@ $(document).ready(async function () {
 
     async function setOther(other, otherResponsePredict){
 
-        var qualAlternatives  = $('.alternativesAPI > div').length
+        var quantAlternatives  = $('.test').first().find('.alternativesAPI > div').length
         var quantTests = $('.test').length
         
-        var pos = qualAlternatives + other
+        var pos = quantAlternatives + other
         var id =  String(quantTests) + "_oth-" + String(pos)
 
         modelOther = `
@@ -109,8 +109,6 @@ $(document).ready(async function () {
             </div>
         `
         $("#API .test").last().find(".othersAPI").append(modelOther);
-        // $("#API .test").last().find(".othersAPI").find('.oth').last().find('label').text(pos)
-        // $("#API .test").last().find(".othersAPI").find('.oth').last().find('input').val(otherResponsePredict)
     }
 
     async function setOthers(dataOthers) {
@@ -131,9 +129,9 @@ $(document).ready(async function () {
 
     async function setData(dataBody) {
 
-        sourceb64 = "data:image/png;base64," + fileInB64
+        sourceb64 = "data:image/png;base64," + dataBody['bigRect']
 
-        $("#answersQuestions").css({ "display": "none" });
+        // $("#answersQuestions").css({ "display": "none" });
         $("#btnDownloadCsv").css({ "display": "block" });
         $("#API").css({ "display": "block" });
         // $("#imgB64").attr("src", "data:image/png;base64," + fileInB64);
@@ -304,9 +302,11 @@ $(document).ready(async function () {
         let csvContent = "data:text/csv;charset=utf-8," + resultTestsContent
         var encodedUri = encodeURI(csvContent);
         var link = document.createElement("a");
+        link.setAttribute("id", "aDownload");
         link.setAttribute("href", encodedUri);
         link.setAttribute("download", "Results-AutoCV.csv");
         document.body.appendChild(link);
         link.click();
+        link.remove()
     });
 });
