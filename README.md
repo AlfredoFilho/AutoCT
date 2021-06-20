@@ -1,8 +1,15 @@
-# AutoCT
-[Website](https://alfredofilho.github.io/AutoCT/) for repo [AutoCT-Backend](https://github.com/AlfredoFilho/AutoCT-Backend/)
-<br>_In developing_
+### AutoCT - Automação de Correção de Gabaritos
 
-Screenshot Example
+<hr>
+
+API hospedada no AWS lambda + API Gateway<br>
+Function e Layer utilizadas em: [AWS-Lambda Backup](https://github.com/AlfredoFilho/AutoCT/tree/master/AWS-Lambda%20Backup)<br>
+Repositório com códidos feitos para criar o modelo de reconhecimento de números: [AutoCT-Backend](https://github.com/AlfredoFilho/AutoCT-Backend)
+<br><hr>
+Para testar, acesse o [Website](https://alfredofilho.github.io/AutoCT/) e faça download do [exemplo](https://raw.githubusercontent.com/AlfredoFilho/AutoCT/master/example.png).<br>
+Selecione o arquivo e preencha os campos com as respostas corretas do gabarito e aperta em Correct.
+
+Exemplo de funcionamento:
 
 |  <img src="screenshot_example.png">  |
 | --- |
