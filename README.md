@@ -7,7 +7,7 @@ Function e Layer utilizadas em: [AWS-Lambda Backup](https://github.com/AlfredoFi
 Repositório com códidos feitos para criar o modelo de reconhecimento de números: [AutoCT-Backend](https://github.com/AlfredoFilho/AutoCT-Backend)
 <br><hr>
 Para testar, acesse o [Website](https://alfredofilho.github.io/AutoCT/) e faça download do [exemplo](https://raw.githubusercontent.com/AlfredoFilho/AutoCT/master/example.png).<br>
-Selecione o arquivo e preencha os campos com as respostas corretas do gabarito e aperta em Correct.
+Selecione o arquivo no topo e preencha os campos com as respostas corretas do gabarito, em seguida, aperte em Correct.
 
 Exemplo de funcionamento:
 
